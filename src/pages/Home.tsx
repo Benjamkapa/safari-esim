@@ -91,7 +91,7 @@ export default function Home() {
               <div className="phone-mock">
                 <div className="phone-notch" />
                 <div className="phone-screen">
-                  <img src="/safari-esim-logo.png" alt="Safari eSIM" />
+                  <img src="/safari-esim-logoL.png" alt="Safari eSIM" />
                   <span className="live-dot">ACTIVE</span>
                   <h3>Kenya eSIM</h3>
                   <strong>3.8 GB</strong>
