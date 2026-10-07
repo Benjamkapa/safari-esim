@@ -38,7 +38,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
               className={loc.pathname === to ? "side-link active" : "side-link"}
               to={to}
             >
-              <Icon size={18} />
+              <Receipt size={18} />
               <span>{label}</span>
             </Link>
           ))}
