@@ -15,7 +15,9 @@ import {
 import { Link } from "react-router-dom";
 import PortalLayout from "../components/PortalLayout";
 import { useAuth } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
 import { countries } from "../data/countries";
+
 const active = countries[0];
 export function PortalHome() {
   return (
@@ -106,23 +108,25 @@ export function PortalHome() {
   );
 }
 function Stat({ title, value }: { title: string; value: string }) {
+  const { t } = useLanguage();
   return (
     <div className="portal-stat">
-      <span>{title}</span>
-      <b>{value}</b>
+      <span>{t(title)}</span>
+      <b>{t(value)}</b>
     </div>
   );
 }
 function PortalHeader({ title, sub }: { title: string; sub: string }) {
+  const { t } = useLanguage();
   return (
     <div className="portal-heading">
       <div>
-        <span className="section-kicker">PORTAL</span>
-        <h1>{title}</h1>
-        <p>{sub}</p>
+        <span className="section-kicker">{t("PORTAL")}</span>
+        <h1>{t(title)}</h1>
+        <p>{t(sub)}</p>
       </div>
       <Link className="button" to="/destinations">
-        Buy an eSIM <ArrowRight size={16} />
+        {t("get_esim")} <ArrowRight size={16} />
       </Link>
     </div>
   );
@@ -138,13 +142,14 @@ function PanelHead({
   action: string;
   href: string;
 }) {
+  const { t } = useLanguage();
   return (
     <div className="panel-head">
       <div>
-        <span className="section-kicker">{kicker}</span>
-        <h2>{title}</h2>
+        <span className="section-kicker">{t(kicker)}</span>
+        <h2>{t(title)}</h2>
       </div>
-      <Link to={href}>{action}</Link>
+      <Link to={href}>{t(action)}</Link>
     </div>
   );
 }

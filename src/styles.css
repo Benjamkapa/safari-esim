@@ -2421,3 +2421,27 @@ td {
   background: #fff1f2;
   color: var(--error);
 }
+
+/* Google Translate dynamic styling overrides */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+}
+#google_translate_element .goog-te-gadget-simple {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: 0.85rem !important;
+  color: inherit !important;
+}
+#google_translate_element .goog-te-gadget-simple img {
+  display: none !important;
+}
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+

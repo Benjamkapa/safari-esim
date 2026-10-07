@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
-import { Mail, MapPin, Phone } from "lucide-react";
-import Logo from "./Logo";
+import { Mail, MapPin } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
+
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer>
       <div className="container footer-grid">
@@ -12,8 +15,7 @@ export default function Footer() {
             alt="Safari eSim"
           />
           <p>
-            Simple, affordable connectivity for every journey. Buy your eSIM,
-            install it in minutes and stay connected.
+            {t("hero_sub")}
           </p>
           <div className="contact-mini">
             <span>
@@ -25,31 +27,35 @@ export default function Footer() {
           </div>
         </div>
         <div>
-          <b>Explore</b>
-          <Link to="/destinations">Destinations</Link>
-          <Link to="/plans">All plans</Link>
-          <Link to="/how-it-works">How it works</Link>
-          <Link to="/installation-guide">Installation guide</Link>
+          <b>{t("explore")}</b>
+          <Link to="/destinations">{t("destinations")}</Link>
+          <Link to="/plans">{t("all_plans")}</Link>
+          <Link to="/how-it-works">{t("how_it_works")}</Link>
+          <Link to="/installation-guide">{t("installation_guide")}</Link>
         </div>
         <div>
-          <b>Support</b>
-          <Link to="/support">Help centre</Link>
-          <Link to="/faq">FAQs</Link>
-          <Link to="/contact">Contact us</Link>
-          <Link to="/network-coverage">Network coverage</Link>
+          <b>{t("support")}</b>
+          <Link to="/support">{t("help_centre")}</Link>
+          <Link to="/faq">{t("faqs")}</Link>
+          <Link to="/contact">{t("contact_us")}</Link>
+          <Link to="/network-coverage">{t("network_coverage")}</Link>
         </div>
         <div>
-          <b>Company</b>
-          <Link to="/about">About Safari eSim</Link>
-          <Link to="/terms">Terms & conditions</Link>
-          <Link to="/privacy">Privacy policy</Link>
-          <Link to="/refund-policy">Refund policy</Link>
+          <b>{t("company")}</b>
+          <Link to="/about">{t("about")}</Link>
+          <Link to="/terms">{t("terms")}</Link>
+          <Link to="/privacy">{t("privacy")}</Link>
+          <Link to="/refund-policy">{t("refund_policy")}</Link>
         </div>
       </div>
-      <div className="container footer-bottom">
-        <span>© 2026 Safari eSim. All rights reserved.</span>
-        <span>Secure travel connectivity.</span>
+      <div className="container footer-bottom" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
+        <span>© 2026 Safari eSim. {t("rights_reserved")}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <span style={{ fontSize: "0.85rem", opacity: 0.8 }}>{t("translate_more")}:</span>
+          <div id="google_translate_element"></div>
+        </div>
       </div>
     </footer>
   );
 }
+

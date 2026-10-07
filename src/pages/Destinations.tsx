@@ -5,13 +5,18 @@ import SiteHeader from "../components/SiteHeader";
 import Footer from "../components/Footer";
 import { countries } from "../data/countries";
 import Reveal from "../components/Reveal";
+import { useLanguage } from "../context/LanguageContext";
+
 export default function Destinations() {
   const [q, setQ] = useState("");
   const [region, setRegion] = useState("All");
+  const { t } = useLanguage();
+
   const regions = [
     "All",
     ...Array.from(new Set(countries.map((c) => c.region))),
   ];
+
   const filtered = useMemo(
     () =>
       countries.filter(
@@ -21,6 +26,7 @@ export default function Destinations() {
       ),
     [q, region],
   );
+
   return (
     <>
       <SiteHeader />
@@ -28,19 +34,16 @@ export default function Destinations() {
         <div className="container">
           <div className="page-heading">
             <div>
-              <span className="section-kicker">DESTINATIONS</span>
-              <h1>Connect almost anywhere.</h1>
-              <p>
-                Choose a country to see available eSIM plans, coverage and
-                pricing.
-              </p>
+              <span className="section-kicker">{t("destinations")}</span>
+              <h1>{t("dest_heading")}</h1>
+              <p>{t("dest_sub")}</p>
             </div>
             <div className="search-box">
               <Search size={17} />
               <input
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Search countries..."
+                placeholder={t("search")}
               />
             </div>
           </div>
@@ -51,7 +54,7 @@ export default function Destinations() {
                 onClick={() => setRegion(r)}
                 className={region === r ? "filter active" : "filter"}
               >
-                {r}
+                {r === "All" ? t("all") : t(r)}
               </button>
             ))}
           </div>
@@ -69,13 +72,13 @@ export default function Destinations() {
                     }}
                   >
                     <img src={c.flag} alt={`${c.name} flag`} />
-                    <span>{c.region}</span>
-                    <h3>{c.name}</h3>
+                    <span>{t(c.region)}</span>
+                    <h3>{t(c.name)}</h3>
                   </div>
                   <div className="destination-info">
                     <span>
                       <MapPin size={14} />
-                      {c.landmark}
+                      {t(c.landmark)}
                     </span>
                     <ArrowRight size={17} />
                   </div>
@@ -85,8 +88,8 @@ export default function Destinations() {
           </div>
           {filtered.length === 0 && (
             <div className="empty-state">
-              <h3>No destination found</h3>
-              <p>Try another country or region.</p>
+              <h3>{t("no_dest_found")}</h3>
+              <p>{t("try_another")}</p>
             </div>
           )}
         </div>
@@ -95,3 +98,4 @@ export default function Destinations() {
     </>
   );
 }
+

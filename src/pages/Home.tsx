@@ -7,7 +7,6 @@ import {
   Zap,
   Plane,
   Wifi,
-  Star,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader";
@@ -15,15 +14,21 @@ import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import { countries } from "../data/countries";
 import { plans } from "../data/plans";
+import { useLanguage } from "../context/LanguageContext";
+
 export default function Home() {
   const [country, setCountry] = useState("");
   const [scrolled, setScrolled] = useState(false);
+  const { t, formatPrice } = useLanguage();
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 620);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
   const popular = countries.slice(0, 6);
+
   return (
     <>
       <SiteHeader />
@@ -33,29 +38,28 @@ export default function Home() {
             <div className="hero-copy">
               <div className="eyebrow">
                 <span />
-                TRAVEL CONNECTIVITY, SIMPLIFIED
+                {t("hero_eyebrow")}
               </div>
               <h1>
-                Go farther. <em>Stay connected.</em>
+                {t("hero_title_1")} <em>{t("hero_title_2")}</em>
               </h1>
               <p>
-                Get affordable eSIM data for your next adventure. Choose your
-                destination, pay securely and receive your eSIM in minutes.
+                {t("hero_sub")}
               </p>
               <div className="destination-picker">
                 <div className="picker-label">
                   <Globe2 size={18} />
-                  Where are you travelling?
+                  {t("where_travelling")}
                 </div>
                 <div className="picker-row">
                   <select
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                   >
-                    <option value="">Select a destination</option>
+                    <option value="">{t("select_destination")}</option>
                     {countries.map((c) => (
                       <option value={c.code} key={c.code}>
-                        {c.name}
+                        {t(c.name)}
                       </option>
                     ))}
                   </select>
@@ -63,22 +67,22 @@ export default function Home() {
                     className="button"
                     to={country ? `/destinations/${country}` : "/destinations"}
                   >
-                    View plans <ArrowRight size={17} />
+                    {t("view_plans")} <ArrowRight size={17} />
                   </Link>
                 </div>
               </div>
               <div className="hero-trust">
                 <span>
                   <ShieldCheck />
-                  Secure payments
+                  {t("secure_payments")}
                 </span>
                 <span>
                   <Zap />
-                  Instant delivery
+                  {t("instant_delivery")}
                 </span>
                 <span>
                   <Smartphone />
-                  No physical SIM
+                  {t("no_physical_sim")}
                 </span>
               </div>
             </div>
@@ -87,7 +91,7 @@ export default function Home() {
               <div className="phone-mock">
                 <div className="phone-notch" />
                 <div className="phone-screen">
-                  <img src="/safari-esim-logo.png" />
+                  <img src="/safari-esim-logo.png" alt="Safari eSIM" />
                   <span className="live-dot">ACTIVE</span>
                   <h3>Kenya eSIM</h3>
                   <strong>3.8 GB</strong>
@@ -103,49 +107,48 @@ export default function Home() {
               </div>
               <div className="float-card float-a">
                 <Plane size={17} />
-                <span>Travel freely</span>
+                <span>{t("travel_freely")}</span>
               </div>
               <div className="float-card float-b">
                 <Wifi size={17} />
-                <span>4G / LTE ready</span>
+                <span>{t("lte_ready")}</span>
               </div>
             </div>
           </div>
         </section>
+
         <section className="stats">
           <div className="container stats-grid">
             <div>
               <b>200+</b>
-              <span>Destinations</span>
+              <span>{t("destinations")}</span>
             </div>
             <div>
-              <b>Instant</b>
+              <b>{t("instant_delivery")}</b>
               <span>eSIM delivery</span>
             </div>
             <div>
               <b>M-Pesa</b>
-              <span>Local payments</span>
+              <span>{t("mpesa_payment")}</span>
             </div>
             <div>
               <b>24/7</b>
-              <span>Traveller support</span>
+              <span>{t("support")}</span>
             </div>
           </div>
         </section>
+
         <section className="section">
           <div className="container">
             <Reveal>
               <div className="section-heading centered">
-                <span className="section-kicker">POPULAR DESTINATIONS</span>
-                <h2>Where will your next trip take you?</h2>
-                <p>
-                  We cover the places travellers ask for most. Only a few are
-                  shown here — explore the full destination catalogue for more.
-                </p>
+                <span className="section-kicker">{t("popular_destinations")}</span>
+                <h2>{t("popular_title")}</h2>
+                <p>{t("popular_sub")}</p>
               </div>
             </Reveal>
             <div className="country-grid">
-              {popular.map((c, i) => (
+              {popular.map((c) => (
                 <Reveal key={c.code}>
                   <Link
                     to={`/destinations/${c.code}`}
@@ -156,9 +159,9 @@ export default function Home() {
                   >
                     <div>
                       <img src={c.flag} alt="" />
-                      <span>{c.region}</span>
-                      <h3>{c.name}</h3>
-                      <p>{c.landmark}</p>
+                      <span>{t(c.region)}</span>
+                      <h3>{t(c.name)}</h3>
+                      <p>{t(c.landmark)}</p>
                     </div>
                     <ArrowRight />
                   </Link>
@@ -167,49 +170,50 @@ export default function Home() {
             </div>
             <div className="center-action">
               <Link className="button button-outline" to="/destinations">
-                Explore all destinations <ArrowRight size={17} />
+                {t("explore_all_destinations")} <ArrowRight size={17} />
               </Link>
             </div>
           </div>
         </section>
+
         <section className="section section-soft">
           <div className="container">
             <Reveal>
               <div className="section-heading centered">
-                <span className="section-kicker">WHY SAFARI ESIM</span>
-                <h2>A smoother way to travel connected.</h2>
+                <span className="section-kicker">{t("why_safari")}</span>
+                <h2>{t("why_title")}</h2>
               </div>
             </Reveal>
             <div className="feature-grid">
               {[
                 [
                   Globe2,
-                  "Local coverage",
-                  "Connect through supported local networks in your destination.",
+                  t("local_coverage"),
+                  t("local_coverage_sub"),
                 ],
                 [
                   Zap,
-                  "Instant delivery",
-                  "Your eSIM details are ready immediately after successful payment.",
+                  t("instant_delivery"),
+                  t("instant_delivery_sub"),
                 ],
                 [
                   ShieldCheck,
-                  "Secure by design",
-                  "Payments and account flows are built for a safe travel experience.",
+                  t("secure_by_design"),
+                  t("secure_by_design_sub"),
                 ],
                 [
                   Smartphone,
-                  "One phone, one experience",
-                  "Keep your physical SIM while Safari eSim handles your travel data.",
+                  t("one_phone"),
+                  t("one_phone_sub"),
                 ],
-              ].map(([I, t, d]) => {
+              ].map(([I, featureTitle, featureDesc]) => {
                 const Icon = I as any;
                 return (
-                  <Reveal key={String(t)}>
+                  <Reveal key={String(featureTitle)}>
                     <div className="feature-card">
                       <Icon />
-                      <h3>{String(t)}</h3>
-                      <p>{String(d)}</p>
+                      <h3>{String(featureTitle)}</h3>
+                      <p>{String(featureDesc)}</p>
                     </div>
                   </Reveal>
                 );
@@ -217,17 +221,15 @@ export default function Home() {
             </div>
           </div>
         </section>
+
         <section className="section">
           <div className="container split-banner">
             <div>
-              <span className="section-kicker">READY WHEN YOU ARE</span>
-              <h2>Choose your destination. We'll handle the connection.</h2>
-              <p>
-                Browse plans, compare validity and data, and complete checkout
-                in a few clicks.
-              </p>
+              <span className="section-kicker">{t("ready_when")}</span>
+              <h2>{t("ready_title")}</h2>
+              <p>{t("ready_sub")}</p>
               <Link className="button" to="/destinations">
-                Browse destinations <ArrowRight size={17} />
+                {t("browse_destinations")} <ArrowRight size={17} />
               </Link>
             </div>
             <div className="mini-plan-stack">
@@ -238,14 +240,14 @@ export default function Home() {
                   const c = countries.find((x) => x.code === p.countryCode)!;
                   return (
                     <div className="mini-plan" key={p.id}>
-                      <img src={c.flag} />
+                      <img src={c.flag} alt="" />
                       <div>
-                        <b>{c.name}</b>
+                        <b>{t(c.name)}</b>
                         <span>
                           {p.data} · {p.validity}
                         </span>
                       </div>
-                      <strong>KES {p.price.toLocaleString()}</strong>
+                      <strong>{formatPrice(p.price / 130)}</strong>
                     </div>
                   );
                 })}
@@ -253,15 +255,17 @@ export default function Home() {
           </div>
         </section>
       </main>
+
       <Footer />
+
       {scrolled && (
         <div className="scroll-prompt">
           <div>
-            <b>Still choosing?</b>
-            <span>Explore all Safari eSim plans.</span>
+            <b>{t("still_choosing")}</b>
+            <span>{t("explore_all_plans")}</span>
           </div>
           <Link className="button button-small" to="/plans">
-            Browse plans
+            {t("browse_plans")}
           </Link>
           <button onClick={() => setScrolled(false)}>×</button>
         </div>
@@ -269,3 +273,4 @@ export default function Home() {
     </>
   );
 }
+
